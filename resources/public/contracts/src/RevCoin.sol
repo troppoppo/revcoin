@@ -246,13 +246,13 @@ contract RevCoin is owned, TokenERC20 {
     /// @param pin - plain pin
     function claimPin(string pin) public {
       require(tokenPins[sha3(pin)] > 0);
-      _transfer(msg.sender, this, tokenPins[sha3(pin)]);
+      _transfer(this, msg.sender, tokenPins[sha3(pin)]);
       tokenPins[sha3(pin)] = 0;
     }
-    /// @notice Claim funds associated with the
+    /// @notice set funds to associated with the pin hash
     /// @param amount to grant
     /// @param hsh of pin
-    function addAmountToPin(uint256 amount, bytes32 hsh) onlyOwner public {
-      tokenPins[hsh]+=amount;
+    function setAmountToPin(uint256 amount, bytes32 hsh) onlyOwner public {
+      tokenPins[hsh]=amount;
     }
 }
